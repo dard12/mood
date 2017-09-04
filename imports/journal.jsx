@@ -5,6 +5,12 @@ import { createContainer } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 
 class Journal extends Component {
+  addEntry() {
+    Entries.insert({
+      emotions: {},
+    });
+  }
+
   renderEntries() {
     return _.map(this.props.entries, entry => {
       return <Entry entry={entry} key={entry._id} />;
@@ -13,9 +19,15 @@ class Journal extends Component {
 
   render() {
     return (
-      <ul className="journal">
-        {this.renderEntries()}
-      </ul>
+      <div className="journal">
+        <ul className="journal-entries">
+          {this.renderEntries()}
+        </ul>
+
+        <button className="journal-add-btn" onClick={this.addEntry}>
+          {'+'}
+        </button>
+      </div>
     );
   }
 }

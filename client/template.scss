@@ -4,9 +4,13 @@ input {
   border-left: none;
   border-right: none;
   box-shadow: none;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
   outline: none;
+}
+
+button {
+  border: none;
+  outline: none;
+  box-shadow: none;
 }
 
 ul {
