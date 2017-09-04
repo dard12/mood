@@ -7,12 +7,6 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 class Journal extends Component {
-  addEntry() {
-    Entries.insert({
-      emotions: {},
-    });
-  }
-
   renderEntries() {
     return _.map(this.props.entries, entry => {
       return <Entry entry={entry} key={entry._id} />;
@@ -26,7 +20,7 @@ class Journal extends Component {
           {this.renderEntries()}
         </ul>
 
-        <Link className="journal-add-btn" to="/edit-entries">
+        <Link className="journal-add-btn" to="/edit-entry">
           {'+'}
         </Link>
       </div>
