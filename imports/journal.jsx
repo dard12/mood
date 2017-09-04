@@ -21,7 +21,7 @@ class Journal extends Component {
         </ul>
 
         <Link className="journal-add-btn" to="/edit-entry">
-          {'+'}
+          <i className="material-icons">add</i>
         </Link>
       </div>
     );
