@@ -10,7 +10,7 @@ export const Entries = new EntriesCollection('entries');
 
 export class Entry extends Component {
   renderEmotions() {
-    return _.map(this.props.emotions, (value, emotion) => {
+    return _.map(this.props.entry.emotions, (value, emotion) => {
       return (
         <div className="emotion" key={emotion}>
           {emotion}: {value}
@@ -23,7 +23,7 @@ export class Entry extends Component {
     return (
       <li className="entry">
         <span className="entry-title">
-          {moment(this.props.createdAt).format('MMM Do')} Entry
+          {moment(this.props.entry.createdAt).format('MMM Do')} Entry
         </span>
 
         {this.renderEmotions()}
@@ -33,37 +33,41 @@ export class Entry extends Component {
 }
 
 Entry.propTypes = {
-  emotions: PropTypes.shape({
-    alert: PropTypes.number,
-    attentive: PropTypes.number,
-    inspired: PropTypes.number,
-    determined: PropTypes.number,
-    active: PropTypes.number,
+  entry: PropTypes.shape({
+    emotions: PropTypes.shape({
+      alert: PropTypes.number,
+      attentive: PropTypes.number,
+      inspired: PropTypes.number,
+      determined: PropTypes.number,
+      active: PropTypes.number,
 
-    upset: PropTypes.number,
-    ashamed: PropTypes.number,
-    hostile: PropTypes.number,
-    nervous: PropTypes.number,
-    afraid: PropTypes.number,
+      upset: PropTypes.number,
+      ashamed: PropTypes.number,
+      hostile: PropTypes.number,
+      nervous: PropTypes.number,
+      afraid: PropTypes.number,
+    }).isRequired,
+
+    createdAt: PropTypes.instanceOf(Date).isRequired,
   }).isRequired,
-
-  createdAt: PropTypes.instanceOf(Date).isRequired,
 };
 
 Entry.defaultProps = {
-  emotions: {
-    alert: 0,
-    attentive: 0,
-    inspired: 0,
-    determined: 0,
-    active: 0,
+  entry: {
+    emotions: {
+      alert: 0,
+      attentive: 0,
+      inspired: 0,
+      determined: 0,
+      active: 0,
 
-    upset: 0,
-    ashamed: 0,
-    hostile: 0,
-    nervous: 0,
-    afraid: 0,
+      upset: 0,
+      ashamed: 0,
+      hostile: 0,
+      nervous: 0,
+      afraid: 0,
+    },
+
+    createdAt: new Date(),
   },
-
-  createdAt: new Date(),
 };

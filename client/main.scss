@@ -1,28 +1,34 @@
-$bg-blue: #c0dcf8;
+$pastel-blue: #c0dcf8;
+$pastel-orange: #fdf1e9;
+$blue: #78b5f8;
+$orange: #ef674a;
+$gray: #666;
 
 body {
-  background-color: $bg-blue;
+  background-color: $pastel-blue;
   font-family: Georgia, sans-serif;
+  line-height: 1.35;
 }
 
 .journal {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   margin: 3em 10em;
 }
 
 .entry {
-  border: 2px solid #f8f8ff;
-  margin: 1em;
+  color: $gray;
+  margin: 1.5em;
   padding: 1em;
-  box-shadow: 6px 6px rgba(0, 0, 0, 0.05);
+  width: 250px;
+  box-shadow: 6px 6px rgba($blue, 0.3);
+  background-color: #fff;
 }
 
 .entry-title {
+  color: $orange;
   font-size: 1.3em;
   font-weight: bold;
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
   display: inline-block;
-  color: #fff;
-  text-shadow: 2px 2px rgba(0, 0, 0, 0.2);
 }
