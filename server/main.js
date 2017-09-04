@@ -1,1 +1,1 @@
-import '/imports/server/moods-publish.js';
+import '/imports/server/entries-publish.js';
