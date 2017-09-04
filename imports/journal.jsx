@@ -13,7 +13,7 @@ class Journal extends Component {
 
   render() {
     return (
-      <ul className="entries-container">
+      <ul className="journal">
         {this.renderEntries()}
       </ul>
     );

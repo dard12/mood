@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import { Mongo } from 'meteor/mongo';
 
@@ -21,11 +22,11 @@ export class Entry extends Component {
   render() {
     return (
       <li className="entry">
-        {this.renderEmotions()}
-
-        <span className="timestamp">
-          {this.props.createdAt.toString()}
+        <span className="entry-title">
+          {moment(this.props.createdAt).format('MMM Do')} Entry
         </span>
+
+        {this.renderEmotions()}
       </li>
     );
   }
