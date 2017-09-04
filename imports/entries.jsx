@@ -11,7 +11,7 @@ export class Entry extends Component {
   renderEmotions() {
     return _.map(this.props.emotions, (value, emotion) => {
       return (
-        <div className="emotion">
+        <div className="emotion" key={emotion}>
           {emotion}: {value}
         </div>
       );
@@ -24,7 +24,7 @@ export class Entry extends Component {
         {this.renderEmotions()}
 
         <span className="timestamp">
-          {this.props.createdAt}
+          {this.props.createdAt.toString()}
         </span>
       </li>
     );
@@ -33,24 +33,24 @@ export class Entry extends Component {
 
 Entry.propTypes = {
   emotions: PropTypes.shape({
-    alert: PropTypes.Number,
-    attentive: PropTypes.Number,
-    inspired: PropTypes.Number,
-    determined: PropTypes.Number,
-    active: PropTypes.Number,
+    alert: PropTypes.number,
+    attentive: PropTypes.number,
+    inspired: PropTypes.number,
+    determined: PropTypes.number,
+    active: PropTypes.number,
 
-    upset: PropTypes.Number,
-    ashamed: PropTypes.Number,
-    hostile: PropTypes.Number,
-    nervous: PropTypes.Number,
-    afraid: PropTypes.Number,
+    upset: PropTypes.number,
+    ashamed: PropTypes.number,
+    hostile: PropTypes.number,
+    nervous: PropTypes.number,
+    afraid: PropTypes.number,
   }).isRequired,
 
-  createdAt: PropTypes.instanceOf(Date),
+  createdAt: PropTypes.instanceOf(Date).isRequired,
 };
 
 Entry.defaultProps = {
-  emotions: PropTypes.shape({
+  emotions: {
     alert: 0,
     attentive: 0,
     inspired: 0,
@@ -62,7 +62,7 @@ Entry.defaultProps = {
     hostile: 0,
     nervous: 0,
     afraid: 0,
-  }).isRequired,
+  },
 
   createdAt: new Date(),
 };

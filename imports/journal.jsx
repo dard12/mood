@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 class Journal extends Component {
   renderEntries() {
     return _.map(this.props.entries, entry => {
-      return <Entry entry={entry} />;
+      return <Entry entry={entry} key={entry._id} />;
     });
   }
 
@@ -25,7 +25,7 @@ Journal.defaultProps = {
 };
 
 Journal.propTypes = {
-  entries: PropTypes.arrayOf(Entry),
+  entries: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default createContainer(() => {
