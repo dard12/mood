@@ -5,6 +5,7 @@ body {
   font-family: Georgia, sans-serif;
 }
 
+// Journal
 .journal {
   position: relative;
   margin: 4em auto;
@@ -29,6 +30,7 @@ body {
   box-shadow: 6px 6px rgba($blue, 0.5);
 }
 
+// Entry
 .entry {
   color: $gray;
   margin: 1.3em;
@@ -71,11 +73,6 @@ body {
   border-bottom: 3px solid $light-gray;
 }
 
-.emotion-score {
-  @extend .rounded;
-  margin: 0.3em 0;
-}
-
 .emotions-container + .emotions-container {
   margin-top: 1em;
 }
@@ -86,7 +83,13 @@ body {
   justify-content: space-between;
 }
 
-.emotion-container {
+.emotion-score {
+  @extend .rounded;
+  margin: 0.3em 0;
+}
+
+// Record
+.record-container {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -97,7 +100,7 @@ body {
   flex-direction: column;
 }
 
-.emotion-row {
+.record-row {
   box-shadow: 6px 6px rgba($blue, 0.3);
   padding: 2em;
   position: relative;
@@ -109,21 +112,21 @@ body {
   margin-bottom: 3em;
 }
 
-.emotion-name {
+.record-name {
   color: $blue;
   margin: 0 0.5em;
   padding-bottom: 4px;
   border-bottom: 4px solid $blue;
 }
 
-.emotion-scale {
+.record-scale {
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 2.5em 0;
 }
 
-.emotion-close {
+.record-close {
   @extend .rounded;
   position: absolute;
   top: -2.5em;

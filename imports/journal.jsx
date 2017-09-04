@@ -20,7 +20,7 @@ class Journal extends Component {
           {this.renderEntries()}
         </ul>
 
-        <Link className="journal-add-btn" to="/edit-entry">
+        <Link className="journal-add-btn" to="/record">
           <i className="material-icons">add</i>
         </Link>
       </div>

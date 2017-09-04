@@ -3,7 +3,7 @@ import { Entries } from '/imports/entries.jsx';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
 
-export default class Mood extends Component {
+export default class Record extends Component {
   state = {
     currentEmotion: _.sample(Entries.positiveEmotions()),
     remainingEmotions: Entries.defaultProps.emotions,
@@ -41,21 +41,21 @@ export default class Mood extends Component {
 
   render() {
     return (
-      <div className="emotion-container">
-        <div className="emotion-row">
-          <Link className="emotion-close" to="/">
+      <div className="record-container">
+        <div className="record-row">
+          <Link className="record-close" to="/">
             <i className="material-icons"> close </i>
           </Link>
 
           <h1>
             “ How
-            <span className="emotion-name">
+            <span className="record-name">
               {_.capitalize(this.state.currentEmotion)}
             </span>
             do you feel today? ”
           </h1>
 
-          <ul className="emotion-scale">
+          <ul className="record-scale">
             <li className="scale-label"> Very little </li>
             {this.renderScale()}
             <li className="scale-label"> Extremely </li>

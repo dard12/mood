@@ -4,14 +4,14 @@ import { render } from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Journal from '/imports/journal.jsx';
-import Mood from '/imports/mood.jsx';
+import Record from '/imports/record.jsx';
 
 Meteor.startup(() => {
   render(
     <Router>
       <div>
         <Route exact path="/" component={Journal} />
-        <Route path="/edit-entry" component={Mood} />
+        <Route path="/record" component={Record} />
       </div>
     </Router>,
     document.getElementById('root')
