@@ -1,25 +1,20 @@
-$pastel-blue: #c0dcf8;
-$pastel-orange: #fdf1e9;
-$blue: #78b5f8;
-$orange: #ef674a;
-$gray: #666;
-$light-gray: #fafafa;
+@import 'template.scss';
 
 body {
   background-color: $pastel-blue;
   font-family: Georgia, sans-serif;
-  line-height: 1.35;
-  font-size: 15px;
 }
 
 .journal {
   position: relative;
-  margin: 3em 10em;
+  margin: 3em auto;
+  max-width: 1200px;
 }
 
 .journal-entries {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .journal-add-btn {
@@ -49,27 +44,34 @@ body {
   position: relative;
 
   &:hover {
-    .entry-remove-btn {
+    .entry-buttons {
       display: flex;
     }
   }
 }
 
-.entry-remove-btn {
+.entry-buttons {
   position: absolute;
-  top: 0.5em;
-  right: 0.5em;
-  background-color: $light-gray;
-  border-radius: 50%;
-  font-size: 1.2em;
-  line-height: 1em;
-  height: 1.3em;
-  width: 1.3em;
-  color: $gray;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+  top: -1em;
+  right: -1em;
   display: none;
+
+  button {
+    border-radius: 50%;
+    padding: 0.5em;
+    background-color: $light-gray;
+    color: $gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba($gray, .5);
+    margin-left: 0.5em;
+  }
+
+  i {
+    font-size: 2em;
+  }
 }
 
 .entry-title {

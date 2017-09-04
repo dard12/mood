@@ -1,3 +1,15 @@
+$pastel-blue: #c0dcf8;
+$pastel-orange: #fdf1e9;
+
+$blue: #78b5f8;
+$orange: #ef674a;
+$mint: #91e6ca;
+
+$deep-blue: #1e5cbe;
+
+$gray: #666;
+$light-gray: #fafafa;
+
 input {
   border-radius: 0;
   border-top: none;
@@ -13,8 +25,25 @@ button {
   box-shadow: none;
 }
 
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -moz-font-feature-settings: "liga" on;
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+  font-variant-ligatures: common-ligatures;
+  line-height: 1.43;
+  font-size: 15px;
+}
+
+ol,
 ul {
-  list-style-type: none;
+  list-style: none;
+  margin-bottom: 0;
+}
+
+ul {
+  padding-left: 0;
 }
 
 .transition-fast {

@@ -77,9 +77,15 @@ export class Entry extends Component {
           {moment(this.props.entry.createdAt).format('MMM Do')}
         </span>
 
-        <button className="entry-remove-btn" onClick={this.removeEntry}>
-          {'x'}
-        </button>
+        <div className="entry-buttons">
+          <button onClick={this.editEntry}>
+            <i className="material-icons">mode_edit</i>
+          </button>
+
+          <button onClick={this.removeEntry}>
+            <i className="material-icons">delete</i>
+          </button>
+        </div>
 
         <div className="emotions-container">
           {this.renderEmotions(Entries.positiveEmotions())}
