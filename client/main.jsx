@@ -9,9 +9,10 @@ import Emotion from '/imports/emotion.jsx';
 Meteor.startup(() => {
   render(
     <Router>
-      <Route path="/" component={Journal}>
-        <Route path="edit-entry" component={Emotion} />
-      </Route>
+      <div>
+        <Route exact path="/" component={Journal} />
+        <Route path="/edit-entry" component={Emotion} />
+      </div>
     </Router>,
     document.getElementById('root')
   );

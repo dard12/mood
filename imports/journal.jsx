@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Entries, Entry } from '/imports/entries.jsx';
 import { createContainer } from 'meteor/react-meteor-data';
+import { Link } from 'react-router-dom';
+
 import PropTypes from 'prop-types';
 
 class Journal extends Component {
@@ -24,9 +26,9 @@ class Journal extends Component {
           {this.renderEntries()}
         </ul>
 
-        <button className="journal-add-btn" onClick={this.addEntry}>
+        <Link className="journal-add-btn" to="/edit-entries">
           {'+'}
-        </button>
+        </Link>
       </div>
     );
   }
