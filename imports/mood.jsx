@@ -1,18 +1,40 @@
 import React, { Component } from 'react';
 import { Entries } from '/imports/entries.jsx';
+import { Link } from 'react-router-dom';
 import _ from 'lodash';
 
 export default class Mood extends Component {
   state = {
-    emotion: _.sample(Entries.positiveEmotions()),
+    currentEmotion: _.sample(Entries.positiveEmotions()),
+    remainingEmotions: Entries.defaultProps.emotions,
+    savedEmotions: {},
+  };
+
+  saveQuestion = value => {
+    const { currentEmotion, remainingEmotions, savedEmotions } = this.state;
+
+    savedEmotions[currentEmotion] = 1;
+    delete remainingEmotions[currentEmotion];
+
+    const nextEmotion = _.sample(_.keys(remainingEmotions));
+
+    this.setState({
+      currentEmotion: nextEmotion,
+      remainingEmotions,
+      savedEmotions,
+    });
   };
 
   renderScale() {
     return _.map(_.range(1, 6), value => {
       return (
-        <li className="scale-option" key={value}>
+        <button
+          className="scale-option"
+          onClick={this.saveQuestion}
+          key={value}
+        >
           {value}
-        </li>
+        </button>
       );
     });
   }
@@ -20,18 +42,25 @@ export default class Mood extends Component {
   render() {
     return (
       <div className="emotion-container">
-        <h1 className="emotion-header">
-          “ How often do you feel
-          <span className="emotion-name">
-            {_.capitalize(this.state.emotion)}
-          </span>? ”
-        </h1>
+        <div className="emotion-row">
+          <Link className="emotion-close" to="/">
+            <i className="material-icons"> close </i>
+          </Link>
 
-        <ul className="emotion-scale">
-          <li className="scale-label"> Never </li>
-          {this.renderScale()}
-          <li className="scale-label"> Always </li>
-        </ul>
+          <h1>
+            “ How
+            <span className="emotion-name">
+              {_.capitalize(this.state.currentEmotion)}
+            </span>
+            do you feel today? ”
+          </h1>
+
+          <ul className="emotion-scale">
+            <li className="scale-label"> Very little </li>
+            {this.renderScale()}
+            <li className="scale-label"> Extremely </li>
+          </ul>
+        </div>
       </div>
     );
   }

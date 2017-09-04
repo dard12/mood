@@ -31,6 +31,46 @@ class EntriesCollection extends Mongo.Collection {
 
 export const Entries = new EntriesCollection('entries');
 
+Entries.propTypes = {
+  _id: PropTypes.string,
+
+  emotions: PropTypes.shape({
+    alert: PropTypes.number,
+    attentive: PropTypes.number,
+    inspired: PropTypes.number,
+    determined: PropTypes.number,
+    active: PropTypes.number,
+
+    upset: PropTypes.number,
+    ashamed: PropTypes.number,
+    hostile: PropTypes.number,
+    nervous: PropTypes.number,
+    afraid: PropTypes.number,
+  }).isRequired,
+
+  createdAt: PropTypes.instanceOf(Date).isRequired,
+
+  getEmotions: PropTypes.function,
+};
+
+Entries.defaultProps = {
+  emotions: {
+    alert: 0,
+    attentive: 0,
+    inspired: 0,
+    determined: 0,
+    active: 0,
+
+    upset: 0,
+    ashamed: 0,
+    hostile: 0,
+    nervous: 0,
+    afraid: 0,
+  },
+
+  createdAt: new Date(),
+};
+
 Entries.helpers({
   getEmotions(emotions) {
     if (_.isEmpty(emotions)) {
@@ -100,45 +140,9 @@ export class Entry extends Component {
 }
 
 Entry.propTypes = {
-  entry: PropTypes.shape({
-    _id: PropTypes.string,
-
-    emotions: PropTypes.shape({
-      alert: PropTypes.number,
-      attentive: PropTypes.number,
-      inspired: PropTypes.number,
-      determined: PropTypes.number,
-      active: PropTypes.number,
-
-      upset: PropTypes.number,
-      ashamed: PropTypes.number,
-      hostile: PropTypes.number,
-      nervous: PropTypes.number,
-      afraid: PropTypes.number,
-    }).isRequired,
-
-    createdAt: PropTypes.instanceOf(Date).isRequired,
-
-    getEmotions: PropTypes.function,
-  }).isRequired,
+  entry: PropTypes.shape(Entries.propTypes).isRequired,
 };
 
 Entry.defaultProps = {
-  entry: {
-    emotions: {
-      alert: 0,
-      attentive: 0,
-      inspired: 0,
-      determined: 0,
-      active: 0,
-
-      upset: 0,
-      ashamed: 0,
-      hostile: 0,
-      nervous: 0,
-      afraid: 0,
-    },
-
-    createdAt: new Date(),
-  },
+  entry: Entries.defaultProps,
 };
