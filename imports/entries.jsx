@@ -3,17 +3,50 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import { Mongo } from 'meteor/mongo';
+import _ from 'lodash';
 
-class EntriesCollection extends Mongo.Collection {}
+class EntriesCollection extends Mongo.Collection {
+  positiveEmotions() {
+    return ['alert', 'attentive', 'inspired', 'determined', 'active'];
+  }
+
+  negativeEmotions() {
+    return ['upset', 'ashamed', 'hostile', 'nervous', 'afraid'];
+  }
+}
 
 export const Entries = new EntriesCollection('entries');
 
+Entries.helpers({
+  getEmotions(emotions) {
+    if (_.isEmpty(emotions)) {
+      return this.emotions;
+    } else {
+      const pickedEmotions = {};
+
+      _.each(this.emotions, (value, emotion) => {
+        if (_.includes(emotions, emotion)) {
+          pickedEmotions[emotion] = value;
+        }
+      });
+
+      return pickedEmotions;
+    }
+  },
+});
+
 export class Entry extends Component {
-  renderEmotions() {
-    return _.map(this.props.entry.emotions, (value, emotion) => {
+  renderEmotions(emotions) {
+    return _.map(this.props.entry.getEmotions(emotions), (value, emotion) => {
       return (
         <div className="emotion" key={emotion}>
-          {emotion}: {value}
+          <span>
+            {_.capitalize(emotion)}
+          </span>
+
+          <span className="emotion-score">
+            {value}
+          </span>
         </div>
       );
     });
@@ -26,7 +59,13 @@ export class Entry extends Component {
           {moment(this.props.entry.createdAt).format('MMM Do')} Entry
         </span>
 
-        {this.renderEmotions()}
+        <div className="emotions-container">
+          {this.renderEmotions(Entries.positiveEmotions())}
+        </div>
+
+        <div className="emotions-container">
+          {this.renderEmotions(Entries.negativeEmotions())}
+        </div>
       </li>
     );
   }
@@ -49,6 +88,8 @@ Entry.propTypes = {
     }).isRequired,
 
     createdAt: PropTypes.instanceOf(Date).isRequired,
+
+    getEmotions: PropTypes.function,
   }).isRequired,
 };
 

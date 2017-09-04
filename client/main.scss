@@ -3,6 +3,7 @@ $pastel-orange: #fdf1e9;
 $blue: #78b5f8;
 $orange: #ef674a;
 $gray: #666;
+$light-gray: #fafafa;
 
 body {
   background-color: $pastel-blue;
@@ -26,9 +27,40 @@ body {
 }
 
 .entry-title {
-  color: $orange;
   font-size: 1.3em;
   font-weight: bold;
   margin-bottom: 1em;
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+}
+
+.emotion-score {
+  height: 1.4em;
+  width: 1.4em;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.33em 0;
+  border: 2px solid;
+
+  color: $blue;
+  border-color: $blue;
+}
+
+.emotions-container + .emotions-container {
+  margin-top: 1em;
+  padding-top: 1em;
+  border-top: 3px solid $light-gray;
+
+  .emotion-score {
+    color: $orange;
+    border-color: $orange;
+  }
+}
+
+.emotion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
