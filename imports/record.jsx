@@ -5,15 +5,12 @@ import _ from 'lodash';
 
 export default class Record extends Component {
   state = {
-    currentEmotion: _.sample(Entries.positiveEmotions()),
-    remainingEmotions: _.concat(
-      Entries.positiveEmotions(),
-      Entries.negativeEmotions()
-    ),
+    currentEmotion: _.sample(Entries.positiveEmotions),
+    remainingEmotions: Entries.allEmotions,
     savedEmotions: {},
   };
 
-  saveQuestion = value => {
+  saveAnswer = value => {
     const { currentEmotion, remainingEmotions, savedEmotions } = this.state;
 
     savedEmotions[currentEmotion] = value;
@@ -39,7 +36,7 @@ export default class Record extends Component {
       return (
         <button
           className="scale-option"
-          onClick={() => this.saveQuestion(value)}
+          onClick={() => this.saveAnswer(value)}
           key={value}
         >
           {value}

@@ -11,13 +11,9 @@ class EntriesCollection extends Mongo.Collection {
     super.insert(entry);
   }
 
-  positiveEmotions() {
-    return ['alert', 'attentive', 'inspired', 'determined', 'active'];
-  }
-
-  negativeEmotions() {
-    return ['upset', 'ashamed', 'hostile', 'nervous', 'afraid'];
-  }
+  positiveEmotions = ['alert', 'attentive', 'inspired', 'determined', 'active'];
+  negativeEmotions = ['upset', 'ashamed', 'hostile', 'nervous', 'afraid'];
+  allEmotions = _.concat(this.positiveEmotions, this.negativeEmotions);
 }
 
 export const Entries = new EntriesCollection('entries');
@@ -119,11 +115,11 @@ export class Entry extends Component {
         </div>
 
         <div className="emotions-container">
-          {this.renderEmotions(Entries.positiveEmotions())}
+          {this.renderEmotions(Entries.positiveEmotions)}
         </div>
 
         <div className="emotions-container">
-          {this.renderEmotions(Entries.negativeEmotions())}
+          {this.renderEmotions(Entries.negativeEmotions)}
         </div>
       </li>
     );
