@@ -8,15 +8,6 @@ import _ from 'lodash';
 class EntriesCollection extends Mongo.Collection {
   insert(entry = {}) {
     entry.createdAt = new Date();
-
-    const defaultEmotions = Entry.defaultProps.entry.emotions;
-
-    _.each(defaultEmotions, (defaultValue, emotion) => {
-      if (!_.has(entry, emotion)) {
-        entry.emotions[emotion] = defaultValue;
-      }
-    });
-
     super.insert(entry);
   }
 

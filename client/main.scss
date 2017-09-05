@@ -145,6 +145,7 @@ body {
 
 .scale-option {
   @extend .rounded;
+  @extend .transition-fast;
   font-size: 2em;
   height: 2em;
   width: 2em;
@@ -153,4 +154,12 @@ body {
   color: $gray;
   cursor: pointer;
   margin: 0 0.4em;
+
+  &:hover {
+    background-color: $mint;
+  }
+
+  &:active {
+    background-color: $blue;
+  }
 }
