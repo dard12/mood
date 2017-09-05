@@ -6,57 +6,26 @@ import { Mongo } from 'meteor/mongo';
 import _ from 'lodash';
 
 class EntriesCollection extends Mongo.Collection {
+  positiveEmotions = () => [
+    'alert',
+    'attentive',
+    'inspired',
+    'determined',
+    'active',
+  ];
+
+  negativeEmotions = () => ['upset', 'ashamed', 'hostile', 'nervous', 'afraid'];
+
+  allEmotions = () =>
+    _.concat(this.positiveEmotions(), this.negativeEmotions());
+
   insert(entry = {}) {
     entry.createdAt = new Date();
     super.insert(entry);
   }
-
-  positiveEmotions = ['alert', 'attentive', 'inspired', 'determined', 'active'];
-  negativeEmotions = ['upset', 'ashamed', 'hostile', 'nervous', 'afraid'];
-  allEmotions = _.concat(this.positiveEmotions, this.negativeEmotions);
 }
 
 export const Entries = new EntriesCollection('entries');
-
-Entries.propTypes = {
-  _id: PropTypes.string,
-
-  emotions: PropTypes.shape({
-    alert: PropTypes.number,
-    attentive: PropTypes.number,
-    inspired: PropTypes.number,
-    determined: PropTypes.number,
-    active: PropTypes.number,
-
-    upset: PropTypes.number,
-    ashamed: PropTypes.number,
-    hostile: PropTypes.number,
-    nervous: PropTypes.number,
-    afraid: PropTypes.number,
-  }).isRequired,
-
-  createdAt: PropTypes.instanceOf(Date).isRequired,
-
-  getEmotions: PropTypes.function,
-};
-
-Entries.defaultProps = {
-  emotions: {
-    alert: 0,
-    attentive: 0,
-    inspired: 0,
-    determined: 0,
-    active: 0,
-
-    upset: 0,
-    ashamed: 0,
-    hostile: 0,
-    nervous: 0,
-    afraid: 0,
-  },
-
-  createdAt: new Date(),
-};
 
 Entries.helpers({
   getEmotions(emotions) {
@@ -115,11 +84,11 @@ export class Entry extends Component {
         </div>
 
         <div className="emotions-container">
-          {this.renderEmotions(Entries.positiveEmotions)}
+          {this.renderEmotions(Entries.positiveEmotions())}
         </div>
 
         <div className="emotions-container">
-          {this.renderEmotions(Entries.negativeEmotions)}
+          {this.renderEmotions(Entries.negativeEmotions())}
         </div>
       </li>
     );
@@ -127,9 +96,25 @@ export class Entry extends Component {
 }
 
 Entry.propTypes = {
-  entry: PropTypes.shape(Entries.propTypes).isRequired,
-};
+  entry: PropTypes.shape({
+    _id: PropTypes.string,
 
-Entry.defaultProps = {
-  entry: Entries.defaultProps,
+    emotions: PropTypes.shape({
+      alert: PropTypes.number,
+      attentive: PropTypes.number,
+      inspired: PropTypes.number,
+      determined: PropTypes.number,
+      active: PropTypes.number,
+
+      upset: PropTypes.number,
+      ashamed: PropTypes.number,
+      hostile: PropTypes.number,
+      nervous: PropTypes.number,
+      afraid: PropTypes.number,
+    }),
+
+    createdAt: PropTypes.instanceOf(Date),
+
+    getEmotions: PropTypes.function,
+  }).isRequired,
 };

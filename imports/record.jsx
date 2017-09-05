@@ -5,8 +5,8 @@ import _ from 'lodash';
 
 export default class Record extends Component {
   state = {
-    currentEmotion: _.sample(Entries.positiveEmotions),
-    remainingEmotions: Entries.allEmotions,
+    currentEmotion: _.sample(Entries.positiveEmotions()),
+    remainingEmotions: Entries.allEmotions(),
     savedEmotions: {},
   };
 
