@@ -11,7 +11,6 @@ export default class Topbar extends Component {
     return [
       { path: '/', label: 'Yourself' },
       { path: '/relationships', label: 'Relationships' },
-      { path: '/gratitude', label: 'Gratitude' },
     ];
   }
 

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Entries, Entry } from '/imports/entries.jsx';
 import { createContainer } from 'meteor/react-meteor-data';
-import Topbar from '/imports/topbar.jsx';
 import { Link } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
@@ -16,16 +15,12 @@ class Journal extends Component {
 
   render() {
     return (
-      <div>
-        <Topbar />
+      <div className="journal">
+        <ul className="journal-entries">{this.renderEntries()}</ul>
 
-        <div className="journal">
-          <ul className="journal-entries">{this.renderEntries()}</ul>
-
-          <Link className="journal-add-btn" to="/record">
-            <i className="material-icons">add</i>
-          </Link>
-        </div>
+        <Link className="journal-add-btn" to="/record-mood">
+          <i className="material-icons">add</i>
+        </Link>
       </div>
     );
   }

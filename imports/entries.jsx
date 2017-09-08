@@ -23,9 +23,16 @@ class EntriesCollection extends Mongo.Collection {
     entry.createdAt = new Date();
     super.insert(entry);
   }
+
+  export() {
+    const entries = Entries.find().fetch();
+    console.log(JSON.stringify(entries, null, 2));
+  }
 }
 
 export const Entries = new EntriesCollection('entries');
+
+console.log(Entries);
 
 Entries.helpers({
   getEmotions(emotions) {
@@ -60,13 +67,9 @@ export class Entry extends Component {
     return _.map(this.props.entry.getEmotions(emotions), (value, emotion) => {
       return (
         <div className="emotion" key={emotion}>
-          <span>
-            {_.capitalize(emotion)}
-          </span>
+          <span>{_.capitalize(emotion)}</span>
 
-          <span className="emotion-score">
-            {value}
-          </span>
+          <span className="emotion-score">{value}</span>
         </div>
       );
     });
