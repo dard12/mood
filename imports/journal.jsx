@@ -18,7 +18,7 @@ class Journal extends Component {
       <div className="journal">
         <ul className="journal-entries">{this.renderEntries()}</ul>
 
-        <Link className="journal-add-btn" to="/record-mood">
+        <Link className="journal-add-btn" to="/record">
           <i className="material-icons">add</i>
         </Link>
       </div>
