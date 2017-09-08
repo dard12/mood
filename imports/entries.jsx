@@ -46,9 +46,15 @@ Entries.helpers({
 });
 
 export class Entry extends Component {
+  state = { editing: false };
+
   removeEntry = () => {
     Entries.remove({ _id: this.props.entry._id });
   };
+
+  editEntry() {
+    this.setState({ editing: true });
+  }
 
   renderEmotions(emotions) {
     return _.map(this.props.entry.getEmotions(emotions), (value, emotion) => {

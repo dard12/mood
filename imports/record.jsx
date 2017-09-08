@@ -5,31 +5,54 @@ import _ from 'lodash';
 
 export default class Record extends Component {
   state = {
-    currentEmotion: _.sample(Entries.positiveEmotions()),
-    remainingEmotions: Entries.allEmotions(),
-    savedEmotions: {},
+    remainingEmotions: _.shuffle(Entries.allEmotions()),
+    savedEmotions: [],
   };
 
+  getCurrentEmotion() {
+    return _.first(this.state.remainingEmotions);
+  }
+
   saveAnswer = value => {
-    const { currentEmotion, remainingEmotions, savedEmotions } = this.state;
+    const { remainingEmotions, savedEmotions } = this.state;
+    const emotion = remainingEmotions.shift();
 
-    savedEmotions[currentEmotion] = value;
+    savedEmotions.push({ emotion, value });
 
-    _.pull(remainingEmotions, currentEmotion);
-
-    const nextEmotion = _.sample(remainingEmotions);
-
-    if (nextEmotion) {
-      this.setState({
-        currentEmotion: nextEmotion,
-        remainingEmotions,
-        savedEmotions,
-      });
+    if (this.getCurrentEmotion()) {
+      this.setState({ remainingEmotions, savedEmotions });
     } else {
-      Entries.insert({ emotions: savedEmotions });
+      const emotions = {};
+
+      _.each(savedEmotions, ({ emotion, value }) => {
+        emotions[emotion] = value;
+      });
+
+      Entries.insert({ emotions });
+
       this.props.history.push('/');
     }
   };
+
+  goPrevious = () => {
+    const { remainingEmotions, savedEmotions } = this.state;
+    const lastAnswer = savedEmotions.shift();
+
+    remainingEmotions.unshift(lastAnswer.emotion);
+
+    this.setState({ remainingEmotions, savedEmotions });
+  };
+
+  renderBack() {
+    if (!_.isEmpty(this.state.savedEmotions)) {
+      return (
+        <button className="record-back" onClick={this.goPrevious}>
+          <i className="material-icons">keyboard_arrow_left</i>
+          Previous
+        </button>
+      );
+    }
+  }
 
   renderScale() {
     return _.map(_.range(1, 6), value => {
@@ -53,10 +76,12 @@ export default class Record extends Component {
             <i className="material-icons"> close </i>
           </Link>
 
+          {this.renderBack()}
+
           <h1>
             “ How
             <span className="record-name">
-              {_.capitalize(this.state.currentEmotion)}
+              {_.capitalize(this.getCurrentEmotion())}
             </span>
             do you feel today? ”
           </h1>
