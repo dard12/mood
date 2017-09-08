@@ -54,7 +54,7 @@ export default class Record extends Component {
     }
   }
 
-  renderScale() {
+  renderScaleOptions() {
     return _.map(_.range(1, 6), value => {
       return (
         <button
@@ -68,6 +68,37 @@ export default class Record extends Component {
     });
   }
 
+  renderScale() {
+    return (
+      <ul className="record-scale">
+        <li className="scale-label"> Very little </li>
+
+        {this.renderScaleOptions()}
+
+        <li className="scale-label"> Extremely </li>
+      </ul>
+    );
+  }
+
+  renderQuestion() {
+    const currentEmotion = this.getCurrentEmotion();
+    const emotionQuestion = (
+      <span>
+        How
+        <span className="record-name"> {_.capitalize(currentEmotion)} </span>
+        do you feel today?
+      </span>
+    );
+
+    const gratitudeQuestion = (
+      <span>
+        What are you <span className="record-name"> grateful </span> for?
+      </span>
+    );
+
+    return currentEmotion ? emotionQuestion : gratitudeQuestion;
+  }
+
   render() {
     return (
       <div className="record-container">
@@ -78,19 +109,11 @@ export default class Record extends Component {
 
           {this.renderBack()}
 
-          <h1>
-            “ How
-            <span className="record-name">
-              {_.capitalize(this.getCurrentEmotion())}
-            </span>
-            do you feel today? ”
-          </h1>
+          <h1> “ {this.renderQuestion()} ” </h1>
 
-          <ul className="record-scale">
-            <li className="scale-label"> Very little </li>
-            {this.renderScale()}
-            <li className="scale-label"> Extremely </li>
-          </ul>
+          {this.renderScale()}
+
+          <textarea className="record-explanation" rows="4" />
         </div>
       </div>
     );
