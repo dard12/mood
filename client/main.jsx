@@ -12,6 +12,8 @@ Meteor.startup(() => {
       <div>
         <Route exact path="/" component={Journal} />
         <Route path="/record" component={Record} />
+        <Route path="/relationships" component={Journal} />
+        <Route path="/gratitude" component={Journal} />
       </div>
     </Router>,
     document.getElementById('root')
