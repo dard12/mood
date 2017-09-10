@@ -30,6 +30,8 @@ body {
   line-height: 1.43;
   font-size: 17px;
   margin: 0;
+  background-color: $pastel-blue;
+  font-family: Georgia, sans-serif;
 }
 
 input {
@@ -61,7 +63,26 @@ ul {
   padding-left: 0;
 }
 
-.rounded {
+textarea {
+  resize: none;
+  outline: none;
+  box-shadow: none;
+
+  &::-webkit-input-placeholder {
+    color: #ccc;
+  }
+  &::-moz-placeholder {
+    color: #ccc;
+  }
+  &:-ms-input-placeholder {
+    color: #ccc;
+  }
+  &:-moz-placeholder {
+    color: #ccc;
+  }
+}
+
+.circle {
   display: flex;
   align-items: center;
   justify-content: center;

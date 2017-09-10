@@ -7,30 +7,29 @@ export default class Record extends Component {
   state = {
     remainingEmotions: _.shuffle(Entries.allEmotions()),
     savedEmotions: [],
+    notes: '',
+    gratitude: '',
   };
 
   getCurrentEmotion() {
     return _.first(this.state.remainingEmotions);
   }
 
+  entryFinished() {
+    return !this.getCurrentEmotion() && this.state.gratitude;
+  }
+
   saveAnswer = value => {
-    const { remainingEmotions, savedEmotions } = this.state;
-    const emotion = remainingEmotions.shift();
+    const { remainingEmotions, savedEmotions, notes, gratitude } = this.state;
+    const name = remainingEmotions.shift();
 
-    savedEmotions.push({ emotion, value });
+    savedEmotions.push({ name, value, notes });
 
-    if (this.getCurrentEmotion()) {
-      this.setState({ remainingEmotions, savedEmotions });
-    } else {
-      const emotions = {};
-
-      _.each(savedEmotions, ({ emotion, value }) => {
-        emotions[emotion] = value;
-      });
-
-      Entries.insert({ emotions });
-
+    if (this.entryFinished()) {
+      Entries.insert({ emotions: savedEmotions, gratitude });
       this.props.history.push('/');
+    } else {
+      this.setState({ remainingEmotions, savedEmotions, notes: '' });
     }
   };
 
@@ -111,9 +110,9 @@ export default class Record extends Component {
 
           <h1> “ {this.renderQuestion()} ” </h1>
 
-          {this.renderScale()}
+          <textarea className="record-text" rows="1" placeholder="What happened?" />
 
-          <textarea className="record-explanation" rows="4" />
+          {this.renderScale()}
         </div>
       </div>
     );

@@ -1,10 +1,7 @@
 @import 'template.scss';
 
-body {
-  background-color: $pastel-blue;
-  font-family: Georgia, sans-serif;
-}
 
+// Topbar
 .topbar {
   display: flex;
   justify-content: space-between;
@@ -37,7 +34,7 @@ body {
 }
 
 .journal-add-btn {
-  @extend .rounded;
+  @extend .circle;
   position: fixed;
   right: 3em;
   bottom: 3em;
@@ -54,7 +51,6 @@ body {
   margin: 1.3em;
   padding: 1em 2em;
   width: 330px;
-  box-shadow: 6px 6px rgba($blue, 0.3);
   background-color: #fff;
   position: relative;
 
@@ -72,7 +68,7 @@ body {
   display: none;
 
   button {
-    @extend .rounded;
+    @extend .circle;
     padding: 0.5em;
     background-color: $light-gray;
     color: $gray;
@@ -102,7 +98,7 @@ body {
 }
 
 .emotion-score {
-  @extend .rounded;
+  @extend .circle;
   margin: 0.3em 0;
 }
 
@@ -145,7 +141,7 @@ body {
 }
 
 .record-close {
-  @extend .rounded;
+  @extend .circle;
   position: absolute;
   top: -2.5em;
   right: -2.5em;
@@ -170,8 +166,15 @@ body {
   align-items: center;
 }
 
-.record-explanation {
-  width: 80%;
+.record-text {
+  @extend .transition-fast;
+  width: 90%;
+  border: 2px solid rgba($blue, 0.5);;
+  font-size: 1.6em;
+  color: #555;
+  padding: 0.6em 0.8em;
+  margin-top: 0.5em;
+  box-shadow: 6px 6px rgba($blue, 0.15);
 }
 
 .scale-label {
@@ -180,7 +183,7 @@ body {
 }
 
 .scale-option {
-  @extend .rounded;
+  @extend .circle;
   @extend .transition-fast;
   font-size: 2em;
   height: 2em;

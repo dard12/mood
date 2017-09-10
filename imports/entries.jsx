@@ -41,9 +41,9 @@ Entries.helpers({
     } else {
       const pickedEmotions = {};
 
-      _.each(this.emotions, (value, emotion) => {
-        if (_.includes(emotions, emotion)) {
-          pickedEmotions[emotion] = value;
+      _.each(this.emotions, ({value, name}) => {
+        if (_.includes(emotions, name)) {
+          pickedEmotions[name] = value;
         }
       });
 
@@ -104,26 +104,18 @@ export class Entry extends Component {
   }
 }
 
+const emotion = PropTypes.shape({
+  name: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
+  notes: PropTypes.string,
+});
+
 Entry.propTypes = {
   entry: PropTypes.shape({
     _id: PropTypes.string,
-
-    emotions: PropTypes.shape({
-      alert: PropTypes.number,
-      attentive: PropTypes.number,
-      inspired: PropTypes.number,
-      determined: PropTypes.number,
-      active: PropTypes.number,
-
-      upset: PropTypes.number,
-      ashamed: PropTypes.number,
-      hostile: PropTypes.number,
-      nervous: PropTypes.number,
-      afraid: PropTypes.number,
-    }),
-
+    emotions: PropTypes.arrayOf(emotion),
+    gratitude: PropTypes.string,
     createdAt: PropTypes.instanceOf(Date),
-
     getEmotions: PropTypes.function,
   }).isRequired,
 };
