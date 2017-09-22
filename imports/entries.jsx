@@ -35,20 +35,14 @@ export const Entries = new EntriesCollection('entries');
 console.log(Entries);
 
 Entries.helpers({
-  getEmotions(emotions) {
-    if (_.isEmpty(emotions)) {
-      return this.emotions;
-    } else {
-      const pickedEmotions = {};
+  getValue(targetEmotions = Entries.allEmotions()) {
+    return _.sumBy(this.getEmotions(targetEmotions), 'value');
+  },
 
-      _.each(this.emotions, ({value, name}) => {
-        if (_.includes(emotions, name)) {
-          pickedEmotions[name] = value;
-        }
-      });
-
-      return pickedEmotions;
-    }
+  getEmotions(targetEmotions = Entries.allEmotions()) {
+    return _.filter(this.emotions, emotion => {
+      return _.includes(targetEmotions, emotion.name);
+    });
   },
 });
 
@@ -59,17 +53,46 @@ export class Entry extends Component {
     Entries.remove({ _id: this.props.entry._id });
   };
 
-  editEntry() {
-    this.setState({ editing: true });
+  editEntry = () => {
+    this.setState({ editing: !this.state.editing });
+  };
+
+  renderEditActions() {
+    return (
+      <div className="entry-edit-buttons">
+        <button className="save-button" onClick={this.editEntry}>
+          Save
+        </button>
+
+        <button className="cancel-button" onClick={this.editEntry}>
+          Cancel
+        </button>
+      </div>
+    );
+  }
+
+  renderValue(value) {
+    const displayView = <span className="emotion-value"> {value} </span>;
+    const editingView = (
+      <input className="emotion-value" type="number" value={value} />
+    );
+
+    return this.state.editing ? editingView : displayView;
   }
 
   renderEmotions(emotions) {
-    return _.map(this.props.entry.getEmotions(emotions), (value, emotion) => {
-      return (
-        <div className="emotion" key={emotion}>
-          <span>{_.capitalize(emotion)}</span>
+    const savedEmotions = this.props.entry.getEmotions(emotions);
 
-          <span className="emotion-score">{value}</span>
+    return _.map(savedEmotions, ({ value, notes, name }) => {
+      return (
+        <div key={name}>
+          <div className="emotion-row">
+            <span>{_.capitalize(name)}</span>
+
+            {this.renderValue(value)}
+          </div>
+
+          {notes && <div className="entry-notes"> {_.upperFirst(notes)} </div>}
         </div>
       );
     });
@@ -78,9 +101,9 @@ export class Entry extends Component {
   render() {
     return (
       <li className="entry">
-        <span className="entry-title">
+        <h1 className="entry-title">
           {moment(this.props.entry.createdAt).format('MMM Do')}
-        </span>
+        </h1>
 
         <div className="entry-buttons">
           <button onClick={this.editEntry}>
@@ -93,12 +116,29 @@ export class Entry extends Component {
         </div>
 
         <div className="emotions-container">
+          <div className="emotion-total emotion-row">
+            <span> Positive </span>
+            <span>{this.props.entry.getValue(Entries.positiveEmotions())}</span>
+          </div>
+
           {this.renderEmotions(Entries.positiveEmotions())}
         </div>
 
         <div className="emotions-container">
+          <div className="emotion-total emotion-row">
+            <span> Negative </span>
+            <span>{this.props.entry.getValue(Entries.negativeEmotions())}</span>
+          </div>
+
           {this.renderEmotions(Entries.negativeEmotions())}
         </div>
+
+        <div className="emotions-container">
+          <div className="emotion-total emotion-row"> Gratitude </div>
+          <div className="entry-notes">{this.props.entry.gratitude}</div>
+        </div>
+
+        {this.state.editing && this.renderEditActions()}
       </li>
     );
   }

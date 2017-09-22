@@ -7,51 +7,38 @@ export default class Record extends Component {
   state = {
     remainingEmotions: _.shuffle(Entries.allEmotions()),
     savedEmotions: [],
-    notes: '',
-    gratitude: '',
+    inputText: '',
   };
 
   getCurrentEmotion() {
     return _.first(this.state.remainingEmotions);
   }
 
-  entryFinished() {
-    return !this.getCurrentEmotion() && this.state.gratitude;
-  }
-
   saveAnswer = value => {
-    const { remainingEmotions, savedEmotions, notes, gratitude } = this.state;
-    const name = remainingEmotions.shift();
+    const { remainingEmotions, savedEmotions, inputText } = this.state;
 
-    savedEmotions.push({ name, value, notes });
-
-    if (this.entryFinished()) {
-      Entries.insert({ emotions: savedEmotions, gratitude });
-      this.props.history.push('/');
+    if (this.getCurrentEmotion()) {
+      const name = remainingEmotions.shift();
+      savedEmotions.push({ name, value, notes: inputText });
+      this.setState({ remainingEmotions, savedEmotions, inputText: '' });
     } else {
-      this.setState({ remainingEmotions, savedEmotions, notes: '' });
+      Entries.insert({ emotions: savedEmotions, gratitude: inputText });
+      this.props.history.push('/');
     }
   };
 
   goPrevious = () => {
     const { remainingEmotions, savedEmotions } = this.state;
-    const lastAnswer = savedEmotions.shift();
+    const lastAnswer = savedEmotions.pop();
 
-    remainingEmotions.unshift(lastAnswer.emotion);
+    remainingEmotions.unshift(lastAnswer.name);
 
-    this.setState({ remainingEmotions, savedEmotions });
+    this.setState({
+      remainingEmotions,
+      savedEmotions,
+      inputText: lastAnswer.notes,
+    });
   };
-
-  renderBack() {
-    if (!_.isEmpty(this.state.savedEmotions)) {
-      return (
-        <button className="record-back" onClick={this.goPrevious}>
-          <i className="material-icons">keyboard_arrow_left</i>
-          Previous
-        </button>
-      );
-    }
-  }
 
   renderScaleOptions() {
     return _.map(_.range(1, 6), value => {
@@ -79,23 +66,48 @@ export default class Record extends Component {
     );
   }
 
-  renderQuestion() {
-    const currentEmotion = this.getCurrentEmotion();
-    const emotionQuestion = (
+  renderFinish() {
+    return (
+      <button className="record-finish mint" onClick={this.saveAnswer}>
+        <i className="material-icons">check</i>
+        <span> Finish </span>
+      </button>
+    );
+  }
+
+  emotionQuestion() {
+    return (
       <span>
         How
-        <span className="record-name"> {_.capitalize(currentEmotion)} </span>
+        <span className="record-name">
+          {_.capitalize(this.getCurrentEmotion())}
+        </span>
         do you feel today?
       </span>
     );
+  }
 
-    const gratitudeQuestion = (
+  gratitudeQuestion() {
+    return (
       <span>
-        What are you <span className="record-name"> grateful </span> for?
+        What are you <span className="record-name"> Grateful </span> for?
       </span>
     );
+  }
 
-    return currentEmotion ? emotionQuestion : gratitudeQuestion;
+  recordText = event => {
+    this.setState({ inputText: event.currentTarget.value });
+  };
+
+  renderBack() {
+    if (!_.isEmpty(this.state.savedEmotions)) {
+      return (
+        <button className="record-back" onClick={this.goPrevious}>
+          <i className="material-icons">keyboard_arrow_left</i>
+          Previous
+        </button>
+      );
+    }
   }
 
   render() {
@@ -108,11 +120,25 @@ export default class Record extends Component {
 
           {this.renderBack()}
 
-          <h1> “ {this.renderQuestion()} ” </h1>
+          <h1>
+            “
+            {this.getCurrentEmotion() ? (
+              this.emotionQuestion()
+            ) : (
+              this.gratitudeQuestion()
+            )}
+            ”
+          </h1>
 
-          <textarea className="record-text" rows="1" placeholder="What happened?" />
+          <textarea
+            className="record-text"
+            rows="2"
+            placeholder="What happened?"
+            value={this.state.inputText}
+            onChange={this.recordText}
+          />
 
-          {this.renderScale()}
+          {this.getCurrentEmotion() ? this.renderScale() : this.renderFinish()}
         </div>
       </div>
     );

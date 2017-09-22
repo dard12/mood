@@ -1,6 +1,5 @@
 @import 'template.scss';
 
-
 // Topbar
 .topbar {
   display: flex;
@@ -24,7 +23,7 @@
 .journal {
   position: relative;
   margin: 4em auto;
-  max-width: 1200px;
+  max-width: 1400px;
 }
 
 .journal-entries {
@@ -41,7 +40,6 @@
   color: #fff;
   background-color: $orange;
   padding: 1.1em;
-  cursor: pointer;
   box-shadow: 6px 6px rgba($blue, 0.5);
 }
 
@@ -50,7 +48,7 @@
   color: $gray;
   margin: 1.3em;
   padding: 1em 2em;
-  width: 330px;
+  width: 360px;
   background-color: #fff;
   position: relative;
 
@@ -72,7 +70,6 @@
     padding: 0.5em;
     background-color: $light-gray;
     color: $gray;
-    cursor: pointer;
     box-shadow: 0 1px 3px rgba($gray, 0.5);
     margin-left: 0.5em;
   }
@@ -84,22 +81,56 @@
   margin-bottom: 1em;
   padding-bottom: 0.5em;
   display: flex;
-  border-bottom: 3px solid $light-gray;
 }
 
 .emotions-container + .emotions-container {
   margin-top: 1em;
 }
 
-.emotion {
+.emotion-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.emotion-score {
-  @extend .circle;
-  margin: 0.3em 0;
+.emotion-value {
+  margin-left: auto;
+  width: 3em;
+  margin-bottom: 2px;
+  text-align: right;
+}
+
+.emotion-total {
+  color: $blue;
+  font-weight: bold;
+  border-bottom: 2px solid rgba($blue, 0.15);
+  margin-bottom: 0.2em;
+  padding-bottom: 0.2em;
+}
+
+.entry-notes {
+  white-space: pre-line;
+  font-size: 0.8em;
+  color: #aaa;
+}
+
+.entry-edit-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.save-button,
+.cancel-button {
+  font-weight: bold;
+  color: $mint;
+  box-shadow: 6px 6px rgba($mint, 0.15);
+  border: 2px solid $mint;
+  border-radius: 4px;
+  padding: 0.3em 0.7em;
+  background-color: transparent;
+  font-size: 1em;
+  margin-top: 1.3em;
+  margin-left: 0.5em;
 }
 
 // Record
@@ -116,7 +147,7 @@
 
 .record-row {
   box-shadow: 6px 6px rgba($blue, 0.3);
-  padding: 2em;
+  padding: 2em 3em;
   position: relative;
   background-color: #fff;
   display: flex;
@@ -148,7 +179,6 @@
   padding: 0.5em;
   font-size: 1.3em;
   background-color: #fff;
-  cursor: pointer;
   box-shadow: 6px 6px rgba($blue, 0.3);
 }
 
@@ -160,7 +190,6 @@
   background-color: transparent;
   color: #fff;
   font-weight: bold;
-  cursor: pointer;
   text-shadow: 3px 3px rgba($blue, 0.5);
   display: flex;
   align-items: center;
@@ -168,18 +197,24 @@
 
 .record-text {
   @extend .transition-fast;
-  width: 90%;
-  border: 2px solid rgba($blue, 0.5);;
-  font-size: 1.6em;
+  width: 100%;
+  border: 2px solid rgba($blue, 0.5);
+  font-size: 1.3em;
   color: #555;
   padding: 0.6em 0.8em;
   margin-top: 0.5em;
   box-shadow: 6px 6px rgba($blue, 0.15);
 }
 
+.record-finish {
+  font-size: 1.5em;
+  align-self: flex-end;
+  margin-top: 1.3em;
+}
+
 .scale-label {
   font-size: 1.7em;
-  margin: 0 1em;
+  margin: 0 0.5em;
 }
 
 .scale-option {
@@ -191,7 +226,6 @@
   background-color: rgba($mint, 0.2);
   font-weight: bold;
   color: $gray;
-  cursor: pointer;
   margin: 0 0.4em;
 
   &:hover {

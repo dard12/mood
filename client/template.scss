@@ -23,7 +23,7 @@ html {
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -moz-font-feature-settings: "liga" on;
+  -moz-font-feature-settings: 'liga' on;
   text-rendering: optimizeLegibility;
   font-kerning: normal;
   font-variant-ligatures: common-ligatures;
@@ -32,21 +32,41 @@ body {
   margin: 0;
   background-color: $pastel-blue;
   font-family: Georgia, sans-serif;
+  color: $gray;
 }
 
 input {
-  border-radius: 0;
-  border-top: none;
-  border-left: none;
-  border-right: none;
+  border-radius: 0.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 0.4em 0.7em;
   box-shadow: none;
   outline: none;
+  font-size: 1em;
+  display: inline-block;
+  min-width: 1em;
 }
 
 button {
   border: none;
   outline: none;
   box-shadow: none;
+  cursor: pointer;
+  display: flex-inline;
+  align-items: center;
+
+  > i + span {
+    margin-left: 0.3em;
+  }
+
+  &.mint {
+    font-weight: bold;
+    color: #fff;
+    box-shadow: 6px 6px rgba($mint, 0.15);
+    border: 2px solid $mint;
+    border-radius: 4px;
+    padding: 0.3em 0.7em;
+    background-color: $mint;
+  }
 }
 
 a {
