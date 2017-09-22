@@ -38,6 +38,6 @@ export default createContainer(() => {
   Meteor.subscribe('entries.journal');
 
   return {
-    entries: Entries.find({}, { $sort: { createdAt: -1 } }).fetch(),
+    entries: Entries.find({}, { sort: { createdAt: -1 } }).fetch(),
   };
 }, Journal);
