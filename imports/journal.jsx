@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { Entries, Entry } from '/imports/entries.jsx';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Link } from 'react-router-dom';
+import Topbar from '/imports/topbar.jsx';
 
 import PropTypes from 'prop-types';
 
@@ -16,6 +17,9 @@ class Journal extends Component {
   render() {
     return (
       <div className="journal">
+        <h1 className="page-title"> ~ How do you Feel ~ </h1>
+        <Topbar />
+
         <ul className="journal-entries">{this.renderEntries()}</ul>
 
         <Link className="journal-add-btn" to="/record">

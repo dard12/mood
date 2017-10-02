@@ -4,8 +4,9 @@
 .topbar {
   display: flex;
   justify-content: space-between;
-  width: 50%;
-  margin: 2em auto;
+  width: 30%;
+  margin: auto;
+  margin-bottom: 2em;
   font-size: 1.5em;
   font-weight: bold;
   text-shadow: 3px 3px rgba($blue, 0.5);
@@ -19,11 +20,19 @@
   }
 }
 
+.page-title {
+  text-shadow: 3px 3px rgba($blue, 0.5);
+  color: #fff;
+  text-align: center;
+  font-size: 4em;
+  margin-bottom: 0.3em;
+}
+
 // Journal
 .journal {
   position: relative;
   margin: 4em auto;
-  max-width: 1400px;
+  max-width: 1200px;
 }
 
 .journal-entries {
@@ -46,11 +55,12 @@
 // Entry
 .entry {
   color: $gray;
-  margin: 1.3em;
-  padding: 1em 2em;
-  width: 360px;
+  margin: 1.5em;
+  padding: 1em 1.5em;
+  width: 320px;
   background-color: #fff;
   position: relative;
+  box-shadow: 6px 6px rgba($blue, 0.3);
 
   &:hover {
     .entry-buttons {
@@ -76,10 +86,9 @@
 }
 
 .entry-title {
-  font-size: 1.3em;
+  font-size: 1.1em;
   font-weight: bold;
   margin-bottom: 1em;
-  padding-bottom: 0.5em;
   display: flex;
 }
 
