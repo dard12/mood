@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Entries, Entry } from '/imports/entries.jsx';
+import { Entries, Entry } from '/imports/journal/entries.jsx';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Link } from 'react-router-dom';
 import Topbar from '/imports/topbar.jsx';
@@ -17,7 +17,7 @@ class Journal extends Component {
   render() {
     return (
       <div className="journal">
-        <h1 className="page-title"> ~ How do you Feel ~ </h1>
+        <h1 className="page-title"> ~ How do you Feel? ~ </h1>
         <Topbar />
 
         <ul className="journal-entries">{this.renderEntries()}</ul>
@@ -39,7 +39,7 @@ Journal.propTypes = {
 };
 
 export default createContainer(() => {
-  Meteor.subscribe('entries.journal');
+  Meteor.subscribe('entries');
 
   return {
     entries: Entries.find({}, { sort: { createdAt: -1 } }).fetch(),

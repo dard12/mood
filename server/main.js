@@ -1,1 +1,1 @@
-import '/imports/server/entries-publish.js';
+import '/imports/server/publications.js';

@@ -23,16 +23,9 @@ class EntriesCollection extends Mongo.Collection {
     entry.createdAt = new Date();
     super.insert(entry);
   }
-
-  export() {
-    const entries = Entries.find().fetch();
-    console.log(JSON.stringify(entries, null, 2));
-  }
 }
 
 export const Entries = new EntriesCollection('entries');
-
-console.log(Entries);
 
 Entries.helpers({
   getValue(targetEmotions = Entries.allEmotions()) {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Entries } from '/imports/entries.jsx';
+import { Entries } from '/imports/journal/entries.jsx';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
 
