@@ -150,5 +150,6 @@ Entry.propTypes = {
     gratitude: PropTypes.string,
     createdAt: PropTypes.instanceOf(Date),
     getEmotions: PropTypes.function,
+    getValue: PropTypes.function,
   }).isRequired,
 };

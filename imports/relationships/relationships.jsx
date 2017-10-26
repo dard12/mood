@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { People, Person } from '/imports/relationships/people.jsx';
 import { createContainer } from 'meteor/react-meteor-data';
-import { Link } from 'react-router-dom';
 import Topbar from '/imports/topbar.jsx';
 
 import PropTypes from 'prop-types';
 
 class Relationships extends Component {
   createPerson = () => {
-    People.insert({ name: 'test' });
+    People.insert({ name: 'Untitled Person' });
   };
 
   renderPeople() {
