@@ -8,6 +8,10 @@ import Topbar from '/imports/topbar.jsx';
 import PropTypes from 'prop-types';
 
 class Relationships extends Component {
+  createPerson = () => {
+    People.insert({ name: 'test' });
+  };
+
   renderPeople() {
     return _.map(this.props.people, person => {
       return <Person person={person} key={person._id} />;
@@ -17,14 +21,18 @@ class Relationships extends Component {
   render() {
     return (
       <div className="journal">
-        <h1 className="page-title"> ~ How do you Feel? ~ </h1>
+        <h1 className="page-title"> ~ How are your Relationships? ~ </h1>
         <Topbar />
 
         <ul className="journal-entries">{this.renderPeople()}</ul>
 
-        <Link className="journal-add-btn" to="/record">
+        <button
+          type="button"
+          className="journal-add-btn"
+          onClick={this.createPerson}
+        >
           <i className="material-icons">add</i>
-        </Link>
+        </button>
       </div>
     );
   }
