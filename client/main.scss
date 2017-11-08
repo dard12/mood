@@ -25,6 +25,7 @@
   color: #fff;
   text-align: center;
   font-size: 4em;
+  font-family: Georgia;
   margin-bottom: 0.3em;
 }
 
@@ -243,5 +244,27 @@
 
   &:active {
     background-color: $blue;
+  }
+}
+
+// Relationships
+.profile-about {
+  width: 100%;
+  white-space: pre-line;
+}
+
+.person {
+  color: $gray;
+  margin: 1.5em;
+  padding: 1em 1.5em;
+  width: 620px;
+  background-color: #fff;
+  position: relative;
+  box-shadow: 6px 6px rgba($blue, 0.3);
+
+  &:hover {
+    .entry-buttons {
+      display: flex;
+    }
   }
 }

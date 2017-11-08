@@ -50,7 +50,7 @@ export class Entry extends Component {
     this.setState({ editing: !this.state.editing });
   };
 
-  renderEditActions() {
+  editButtons() {
     return (
       <div className="entry-edit-buttons">
         <button className="save-button" onClick={this.editEntry}>
@@ -131,7 +131,7 @@ export class Entry extends Component {
           <div className="entry-notes">{this.props.entry.gratitude}</div>
         </div>
 
-        {this.state.editing && this.renderEditActions()}
+        {this.state.editing && this.editButtons()}
       </li>
     );
   }

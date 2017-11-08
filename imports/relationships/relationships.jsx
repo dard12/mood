@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 class Relationships extends Component {
   createPerson = () => {
-    People.insert({ name: 'Untitled Person' });
+    People.insert({ name: 'Untitled Person', about: 'This is a person.' });
   };
 
   renderPeople() {
